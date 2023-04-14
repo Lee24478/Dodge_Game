@@ -190,7 +190,8 @@ def draw_failure(during_time):
     while fail_waiting:
         CLOCK.tick(60)
         redraw_window(during_time)
-        draw_text(f"Record : {(record//60)//60:0>2d}:{(record//60)%60:0>2d}:{record%60:0>2d}" , os.path.join("Assets" , "ComicSansMS3.ttf") , 20 , 100 , 45 , BLACK , False)
+        if record:
+            draw_text(f"Record : {(record//60)//60:0>2d}:{(record//60)%60:0>2d}:{record%60:0>2d}" , os.path.join("Assets" , "ComicSansMS3.ttf") , 20 , 100 , 45 , BLACK , False)
         draw_text(f"You crashed !" , os.path.join("Assets" , "Courier.ttf") , 50 , WIN_WIDTH/2 , WIN_HEIGHT/2 , BLUE , 1)
         draw_text("Press Enter to play again" , os.path.join("Assets" , "Courier.ttf") , 35 , WIN_WIDTH/2 , WIN_HEIGHT*3/4 , BLUE , 1)
         if NEWRECORD:
@@ -307,7 +308,8 @@ def draw_window(during_time):
         u_d_ball.change_vel()
 
     draw_text(f"Time : {(during_time//60)//60:0>2d}:{(during_time//60)%60:0>2d}:{during_time%60:0>2d}" , os.path.join("Assets" , "ComicSansMS3.ttf") , 20 , 90 , 20 , BLACK)
-    draw_text(f"Record : {(record//60)//60:0>2d}:{(record//60)%60:0>2d}:{record%60:0>2d}" , os.path.join("Assets" , "ComicSansMS3.ttf") , 20 , 100 , 45 , BLACK , False)
+    if record:
+        draw_text(f"Record : {(record//60)//60:0>2d}:{(record//60)%60:0>2d}:{record%60:0>2d}" , os.path.join("Assets" , "ComicSansMS3.ttf") , 20 , 100 , 45 , BLACK , False)
 
     pygame.display.update()
 
@@ -340,7 +342,8 @@ def redraw_window(during_time):
         u_d_ball.update_rect()
 
     draw_text(f"Time : {(during_time//60)//60:0>2d}:{(during_time//60)%60:0>2d}:{during_time%60:0>2d}" , os.path.join("Assets" , "ComicSansMS3.ttf") , 20 , 90 , 20 , BLACK)
-    draw_text(f"Record : {(record//60)//60:0>2d}:{(record//60)%60:0>2d}:{record%60:0>2d}" , os.path.join("Assets" , "ComicSansMS3.ttf") , 20 , 100 , 45 , BLACK , False)
+    if record:
+        draw_text(f"Record : {(record//60)//60:0>2d}:{(record//60)%60:0>2d}:{record%60:0>2d}" , os.path.join("Assets" , "ComicSansMS3.ttf") , 20 , 100 , 45 , BLACK , False)
 
     # pygame.display.update()
 
