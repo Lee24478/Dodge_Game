@@ -397,6 +397,7 @@ def pause(during_time):
                             ORI_WIN_WIDTH , ORI_WIN_HEIGHT = WIN_WIDTH , WIN_HEIGHT
                             WIN_WIDTH , WIN_HEIGHT = WIN_RESOLUTIONS.current_w - 400 , WIN_RESOLUTIONS.current_h - 110  #1000 , 900
                             WIN = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT) , pygame.RESIZABLE)
+                            unmute_pos = pygame.Rect(WIN_WIDTH - UNMUTE.get_rect().width - 15 , 10 , UNMUTE.get_rect().width , UNMUTE.get_rect().height)  
                             CHAR_IMG = pygame.transform.scale(ORI_CHAR_IMG , (WIN_WIDTH/LINE_SPACE , WIN_HEIGHT/LINE_SPACE))
                             char = Char(char.x / (ORI_WIN_WIDTH/LINE_SPACE) * (WIN_WIDTH/LINE_SPACE) , char.y / (ORI_WIN_HEIGHT/LINE_SPACE) * (WIN_HEIGHT/LINE_SPACE) , WIN_WIDTH/LINE_SPACE , WIN_HEIGHT/LINE_SPACE , CHAR_IMG)
                             BALL_IMG = pygame.transform.scale(ORI_BALL_IMG , (WIN_WIDTH/LINE_SPACE , WIN_HEIGHT/LINE_SPACE))
@@ -413,6 +414,7 @@ def pause(during_time):
                             ORI_WIN_WIDTH , ORI_WIN_HEIGHT = WIN_WIDTH , WIN_HEIGHT
                             WIN_WIDTH , WIN_HEIGHT  = WIN_RESOLUTIONS.current_w , WIN_RESOLUTIONS.current_h
                             WIN = pygame.display.set_mode((WIN_WIDTH , WIN_HEIGHT) , pygame.FULLSCREEN | pygame.NOFRAME)
+                            unmute_pos = pygame.Rect(WIN_WIDTH - UNMUTE.get_rect().width - 15 , 10 , UNMUTE.get_rect().width , UNMUTE.get_rect().height)  
                             CHAR_IMG = pygame.transform.scale(ORI_CHAR_IMG , (WIN_WIDTH/LINE_SPACE , WIN_HEIGHT/LINE_SPACE))
                             char = Char(char.x / (ORI_WIN_WIDTH/LINE_SPACE) * (WIN_WIDTH/LINE_SPACE) , char.y / (ORI_WIN_HEIGHT/LINE_SPACE) * (WIN_HEIGHT/LINE_SPACE) , WIN_WIDTH/LINE_SPACE , WIN_HEIGHT/LINE_SPACE , CHAR_IMG)
                             BALL_IMG = pygame.transform.scale(ORI_BALL_IMG , (WIN_WIDTH/LINE_SPACE , WIN_HEIGHT/LINE_SPACE))
@@ -481,7 +483,7 @@ def change_velocity(during_time):
         VELOCITY = 4
 
 def draw_init_screen():
-    global WIN , WIN_WIDTH , WIN_HEIGHT , pause_state , char , CHAR_IMG , BALL_IMG , F11_times , on_or_off , l_r_balls , r_l_balls , d_u_balls , u_d_balls , pause_time
+    global WIN , WIN_WIDTH , WIN_HEIGHT , pause_state , char , CHAR_IMG , BALL_IMG , F11_times , on_or_off , l_r_balls , r_l_balls , d_u_balls , u_d_balls , pause_time , sound_check , unmute_pos
     char_sprites = pygame.sprite.Group()
     for _ in range(10):
         chars = Char_screen()
@@ -496,6 +498,12 @@ def draw_init_screen():
         draw_text("Use arrow key to move the character" , os.path.join("Assets" , "Courier.ttf") , 35 , WIN_WIDTH/2 , WIN_HEIGHT/2 , BLUE)
         draw_text("Press Enter to start" , os.path.join("Assets" , "Courier.ttf") , 30 , WIN_WIDTH/2 , WIN_HEIGHT*2/3 , BLACK)
         draw_text("(Press Space to pause)" , os.path.join("Assets" , "Courier.ttf") , 25 , WIN_WIDTH/2 , WIN_HEIGHT*7/9 , BLACK)
+        draw_text("F11 : Full Screen" , os.path.join("Assets" , "ComicSansMS3.ttf") , 20 , WIN_WIDTH - 100 , 90 , BLACK)
+        draw_text("Esc : End the game" , os.path.join("Assets" , "ComicSansMS3.ttf") , 20 , WIN_WIDTH - 100 , 120 , BLACK)
+        if sound_check % 2:
+            WIN.blit(UNMUTE , (WIN_WIDTH - UNMUTE.get_rect().width - 15 , 10))
+        else:
+            WIN.blit(MUTE , (WIN_WIDTH - MUTE.get_rect().width - 15 , 10))
         pygame.display.update()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -510,6 +518,7 @@ def draw_init_screen():
                         ORI_WIN_WIDTH , ORI_WIN_HEIGHT = WIN_WIDTH , WIN_HEIGHT
                         WIN_WIDTH , WIN_HEIGHT = WIN_RESOLUTIONS.current_w - 400 , WIN_RESOLUTIONS.current_h - 110  #1000 , 900
                         WIN = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT) , pygame.RESIZABLE)
+                        unmute_pos = pygame.Rect(WIN_WIDTH - UNMUTE.get_rect().width - 15 , 10 , UNMUTE.get_rect().width , UNMUTE.get_rect().height)  
                         CHAR_IMG = pygame.transform.scale(ORI_CHAR_IMG , (WIN_WIDTH/LINE_SPACE , WIN_HEIGHT/LINE_SPACE))
                         char = Char(char.x / (ORI_WIN_WIDTH/LINE_SPACE) * (WIN_WIDTH/LINE_SPACE) , char.y / (ORI_WIN_HEIGHT/LINE_SPACE) * (WIN_HEIGHT/LINE_SPACE) , WIN_WIDTH/LINE_SPACE , WIN_HEIGHT/LINE_SPACE , CHAR_IMG)
                         BALL_IMG = pygame.transform.scale(ORI_BALL_IMG , (WIN_WIDTH/LINE_SPACE , WIN_HEIGHT/LINE_SPACE))
@@ -526,6 +535,7 @@ def draw_init_screen():
                         ORI_WIN_WIDTH , ORI_WIN_HEIGHT = WIN_WIDTH , WIN_HEIGHT
                         WIN_WIDTH , WIN_HEIGHT  = WIN_RESOLUTIONS.current_w , WIN_RESOLUTIONS.current_h
                         WIN = pygame.display.set_mode((WIN_WIDTH , WIN_HEIGHT) , pygame.FULLSCREEN | pygame.NOFRAME)
+                        unmute_pos = pygame.Rect(WIN_WIDTH - UNMUTE.get_rect().width - 15 , 10 , UNMUTE.get_rect().width , UNMUTE.get_rect().height)  
                         CHAR_IMG = pygame.transform.scale(ORI_CHAR_IMG , (WIN_WIDTH/LINE_SPACE , WIN_HEIGHT/LINE_SPACE))
                         char = Char(char.x / (ORI_WIN_WIDTH/LINE_SPACE) * (WIN_WIDTH/LINE_SPACE) , char.y / (ORI_WIN_HEIGHT/LINE_SPACE) * (WIN_HEIGHT/LINE_SPACE) , WIN_WIDTH/LINE_SPACE , WIN_HEIGHT/LINE_SPACE , CHAR_IMG)
                         BALL_IMG = pygame.transform.scale(ORI_BALL_IMG , (WIN_WIDTH/LINE_SPACE , WIN_HEIGHT/LINE_SPACE))
@@ -544,6 +554,7 @@ def draw_init_screen():
                 ORI_WIN_WIDTH , ORI_WIN_HEIGHT = WIN_WIDTH , WIN_HEIGHT
                 WIN_WIDTH , WIN_HEIGHT = event.w , event.h
                 WIN = pygame.display.set_mode((WIN_WIDTH, WIN_HEIGHT) , pygame.RESIZABLE)
+                unmute_pos = pygame.Rect(WIN_WIDTH - UNMUTE.get_rect().width - 15 , 10 , UNMUTE.get_rect().width , UNMUTE.get_rect().height)  
                 CHAR_IMG = pygame.transform.scale(ORI_CHAR_IMG , (WIN_WIDTH/LINE_SPACE , WIN_HEIGHT/LINE_SPACE))
                 char = Char(char.x / (ORI_WIN_WIDTH/LINE_SPACE) * (WIN_WIDTH/LINE_SPACE) , char.y / (ORI_WIN_HEIGHT/LINE_SPACE) * (WIN_HEIGHT/LINE_SPACE) , WIN_WIDTH/LINE_SPACE , WIN_HEIGHT/LINE_SPACE , CHAR_IMG)
                 BALL_IMG = pygame.transform.scale(ORI_BALL_IMG , (WIN_WIDTH/LINE_SPACE , WIN_HEIGHT/LINE_SPACE))
@@ -555,6 +566,21 @@ def draw_init_screen():
                     d_u_balls[i] = Ball(d_u_balls[i].x / (ORI_WIN_WIDTH/LINE_SPACE) * (WIN_WIDTH/LINE_SPACE) , d_u_balls[i].y / (ORI_WIN_HEIGHT/LINE_SPACE) * (WIN_HEIGHT/LINE_SPACE) , WIN_WIDTH/LINE_SPACE , WIN_HEIGHT/LINE_SPACE , BALL_IMG)
                 for i in range(len(u_d_balls)):
                     u_d_balls[i] = Ball(u_d_balls[i].x / (ORI_WIN_WIDTH/LINE_SPACE) * (WIN_WIDTH/LINE_SPACE) , u_d_balls[i].y / (ORI_WIN_HEIGHT/LINE_SPACE) * (WIN_HEIGHT/LINE_SPACE) , WIN_WIDTH/LINE_SPACE , WIN_HEIGHT/LINE_SPACE , BALL_IMG)
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_x , mouse_y = pygame.mouse.get_pos()
+                if pygame.mouse.get_pressed()[0] and unmute_pos.left < mouse_x < unmute_pos.right and unmute_pos.top < mouse_y < unmute_pos.bottom:
+                    sound_check += 1
+                    if sound_check % 2:
+                        PAUSE_SOUND.set_volume(0.4)
+                        CRASH_SOUND.set_volume(0.5)
+                        pygame.mixer.music.unpause()
+                        # pygame.mixer.music.set_volume(0.2)
+                    else:
+                        PAUSE_SOUND.set_volume(0)
+                        CRASH_SOUND.set_volume(0)
+                        pygame.mixer.music.pause()
+                        # pygame.mixer.music.set_volume(0)
 
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_RETURN or event.key == pygame.K_KP_ENTER:
